@@ -14,15 +14,7 @@ import (
 	"time"
 )
 
-func main() {
-	var subsOnly bool
-	flag.BoolVar(&subsOnly, "subs-only", false, "Only include subdomains of search domain")
-	flag.Parse()
-
-	var domains io.Reader
-	domains = os.Stdin
-
-	domain := flag.Arg(0)
+func Find(domain string, subsOnly bool) {
 	if domain != "" {
 		domains = strings.NewReader(domain)
 	}
@@ -33,7 +25,7 @@ func main() {
 		fetchThreatCrowd,
 		fetchCrtSh,
 		fetchFacebook,
-		//fetchWayback, // A little too slow :(
+		fetchWayback, // A little too slow :( (I have time)
 		fetchVirusTotal,
 		fetchFindSubDomains,
 		fetchUrlscan,
