@@ -15,6 +15,7 @@ import (
 )
 
 func Find(domain string, subsOnly bool) ([]string, err) {
+	var domains io.Reader
 	if domain != "" {
 		domains = strings.NewReader(domain)
 	}
