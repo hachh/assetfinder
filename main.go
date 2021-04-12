@@ -14,7 +14,7 @@ import (
 	"time"
 )
 
-func Find(domain string, subsOnly bool) {
+func Find(domain string, subsOnly bool) ([]string, err) {
 	if domain != "" {
 		domains = strings.NewReader(domain)
 	}
@@ -54,7 +54,7 @@ func Find(domain string, subsOnly bool) {
 
 				if err != nil {
 					//fmt.Fprintf(os.Stderr, "err: %s\n", err)
-					return
+					return []string{}, err
 				}
 
 				for _, n := range names {
@@ -76,6 +76,7 @@ func Find(domain string, subsOnly bool) {
 
 	// track what we've already printed to avoid duplicates
 	printed := make(map[string]bool)
+	r := []string{}
 
 	for n := range out {
 		if _, ok := printed[n]; ok {
@@ -83,8 +84,9 @@ func Find(domain string, subsOnly bool) {
 		}
 		printed[n] = true
 
-		fmt.Println(n)
+		r = append(r, n)
 	}
+	return r, nil
 }
 
 type fetchFn func(string) ([]string, error)
