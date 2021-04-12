@@ -137,3 +137,4 @@ func fetchJSON(url string, wrapper interface{}) error {
 
 	return dec.Decode(wrapper)
 }
+
