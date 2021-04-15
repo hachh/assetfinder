@@ -1,20 +1,18 @@
-package main
+package assetfinder
 
 import (
 	"bufio"
 	"encoding/json"
-	"flag"
 	"fmt"
 	"io"
 	"io/ioutil"
 	"net/http"
-	"os"
 	"strings"
 	"sync"
 	"time"
 )
 
-func Find(domain string, subsOnly bool) ([]string, err) {
+func Find(domain string, subsOnly bool) ([]string, error) {
 	var domains io.Reader
 	if domain != "" {
 		domains = strings.NewReader(domain)
@@ -55,7 +53,7 @@ func Find(domain string, subsOnly bool) ([]string, err) {
 
 				if err != nil {
 					//fmt.Fprintf(os.Stderr, "err: %s\n", err)
-					return []string{}, err
+					return
 				}
 
 				for _, n := range names {
@@ -138,4 +136,3 @@ func fetchJSON(url string, wrapper interface{}) error {
 
 	return dec.Decode(wrapper)
 }
-
